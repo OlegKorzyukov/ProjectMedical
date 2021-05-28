@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Resources\MedicineResource;
 use App\Models\Medicine;
 
-class MedicineApiService
+// TODO: Rate Limit on request
+class MedicineApiService extends BaseApiService
 {
    public function index()
    {
@@ -15,28 +16,36 @@ class MedicineApiService
 
    public function store(Request $request)
    {
-
       $validated = $request->validate([
-         'name' => 'required|max:255',
-         'substance_id' => 'required|number',
-         'manufacturer_id' => 'required|number',
+         'name' => 'max:255',
+         'substance_id' => 'number',
+         'manufacturer_id' => 'number',
          'price' => 'number',
       ]);
-      dd($validated);
       $medicine = Medicine::create($validated);
-      return response()->json([
+      $options = [
+         'operation' => 'Create',
          'status' => 'Success',
-      ], 404);
+         'model' => $medicine
+      ];
+      return response()->json($options, 201);
    }
 
    public function show($medicine)
    {
       $medicine = new MedicineResource(Medicine::findOrFail($medicine));
-      dd($medicine);
+      parent::responseConstructor('Create', 'Success', $medicine);
    }
 
    public function update(Request $request, Medicine $medicine)
    {
+      $validated = $request->validate([
+         'name' => 'string|max:255',
+         'substance_id' => 'number',
+         'manufacturer_id' => 'number',
+         'price' => 'number',
+      ]);
+      dd($request->only(['name', 'substance_id', 'manufacturer_id', 'price']));
       $medicine->update($request->only(['name', 'substance_id', 'manufacturer_id', 'price']));
 
       return new MedicineResource($medicine);
@@ -44,7 +53,6 @@ class MedicineApiService
 
    public function destroy($medicine)
    {
-
       $medicine = Medicine::findOrFail($medicine);
       $options = [
          'operation' => 'Destroy',
@@ -54,13 +62,6 @@ class MedicineApiService
 
       if ($medicine->delete()) {
          return response()->json($options, 200);
-      } else {
-
-         $options = [
-            'operation' => 'Destroy',
-            'status' => 'Failed',
-         ];
-         return response()->json($options, 404);
       }
    }
 }
