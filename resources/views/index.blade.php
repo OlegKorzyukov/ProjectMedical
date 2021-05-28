@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    {{$AllMedicine}}
     <div class="wrapper">
         @include('parts.header')
         <section class="input__supplies">
@@ -47,7 +48,7 @@
                             {{++$key}}
                         </div>
                         <div class="content__table--value">
-                            {{$value->name}}
+                            <div class="content__table-edit-text" contenteditable="true">{{$value->name}}</div>
                             <span class="table-edit-value hidden">Изменить</span>
                         </div>
                         <div class="content__table--delete">
@@ -70,11 +71,11 @@
                             {{++$key}}
                         </div>
                         <div class="content__table--value">
-                            {{$value->name}}
+                            <div class="content__table-edit-text" contenteditable="true">{{$value->name}}</div>
                             <span class="table-edit-value hidden">Изменить</span>
                         </div>
                         <div class="content__table--value table-link">
-                            <a href="{{$value->link}}">{{ $value->link }} <span class="table-edit-value hidden">Изменить</span></a>
+                            <a contenteditable="true" href="{{$value->link}}">{{ $value->link }} <span class="table-edit-value hidden">Изменить</span></a>
                         </div>
                         <div class="content__table--delete">
                             <form method="POST" action="{{ route('manufacture.destroy') }}">
@@ -96,7 +97,11 @@
                             {{++$key}}
                         </div>
                         <div class="content__table--value">
-                            {{$value->name}}
+                            <div class="content__table-edit-text" contenteditable="true">{{$value->name}}</div>
+                            <span class="table-edit-value hidden">Изменить</span>
+                        </div>
+                        <div class="content__table--value">
+                            <div class="content__table-edit-text" contenteditable="true">{{$value->price}}</div>
                             <span class="table-edit-value hidden">Изменить</span>
                         </div>
                         <div class="content__table--delete">

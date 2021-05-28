@@ -18,6 +18,9 @@ use App\Http\Services\MedicineApiService;
     
 });*/
 
+Route::fallback(function () {
+    abort(404, 'API resource not found');
+});
 Route::prefix('/')->group(function () {
     Route::apiResource('medicines', MedicineApiService::class);
 });

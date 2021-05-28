@@ -15,35 +15,52 @@ class MedicineApiService
 
    public function store(Request $request)
    {
-      $medicine = Medicine::create([
-         'user_id' => $request->user()->id,
-         'title' => $request->title,
-         'description' => $request->description,
-      ]);
 
-      return new MedicineResource($medicine);
+      $validated = $request->validate([
+         'name' => 'required|max:255',
+         'substance_id' => 'required|number',
+         'manufacturer_id' => 'required|number',
+         'price' => 'number',
+      ]);
+      dd($validated);
+      $medicine = Medicine::create($validated);
+      return response()->json([
+         'status' => 'Success',
+      ], 404);
    }
 
    public function show($medicine)
    {
-      return new MedicineResource(Medicine::findOrFail($medicine));
+      $medicine = new MedicineResource(Medicine::findOrFail($medicine));
+      dd($medicine);
    }
 
    public function update(Request $request, Medicine $medicine)
    {
-      if ($request->user()->id !== $medicine->user_id) {
-         return response()->json(['error' => 'You can only edit your own books.'], 403);
-      }
-
-      $medicine->update($request->only(['title', 'description']));
+      $medicine->update($request->only(['name', 'substance_id', 'manufacturer_id', 'price']));
 
       return new MedicineResource($medicine);
    }
 
-   public function destroy(Medicine $medicine)
+   public function destroy($medicine)
    {
-      $medicine->delete();
 
-      return response()->json(null, 204);
+      $medicine = Medicine::findOrFail($medicine);
+      $options = [
+         'operation' => 'Destroy',
+         'status' => 'Success',
+         'model' => $medicine
+      ];
+
+      if ($medicine->delete()) {
+         return response()->json($options, 200);
+      } else {
+
+         $options = [
+            'operation' => 'Destroy',
+            'status' => 'Failed',
+         ];
+         return response()->json($options, 404);
+      }
    }
 }

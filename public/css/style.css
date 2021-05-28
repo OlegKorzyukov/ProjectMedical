@@ -135,3 +135,7 @@ header h1 {
     font-weight: bold;
     font-size: 16px;
 }
+.content__table-edit-text {
+    width: 87%;
+    display: inline-block;
+}
