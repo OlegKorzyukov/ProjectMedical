@@ -4,28 +4,31 @@ namespace App\Http\Services;
 
 use Illuminate\Http\Request;
 use App\Http\Resources\MedicineResource;
+use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use App\Models\Medicine;
 
 // TODO: Rate Limit on request
+//TODO: take out validation and message 
 class MedicineApiService extends BaseApiService
 {
    /**
     * index
     *
-    * @return void
+    * @return Response
     */
-   public function index()
+   public function index(): Response
    {
-      return new MedicineResource(Medicine::all());
+      return response(new MedicineResource(Medicine::all()), 200);
    }
 
    /**
     * store
     *
     * @param  mixed $request
-    * @return void
+    * @return JsonResponse
     */
-   public function store(Request $request)
+   public function store(Request $request): JsonResponse
    {
       dd($request);
       $validated = $request->validate([
@@ -47,12 +50,11 @@ class MedicineApiService extends BaseApiService
     * show
     *
     * @param  mixed $medicine
-    * @return void
+    * @return Response
     */
-   public function show($medicine)
+   public function show($medicine): Response
    {
-      $medicine = new MedicineResource(Medicine::findOrFail($medicine));
-      parent::responseConstructor('Create', 'Success', $medicine);
+      return response(new MedicineResource(Medicine::findOrFail($medicine)), 200);
    }
 
    /**
@@ -60,9 +62,9 @@ class MedicineApiService extends BaseApiService
     *
     * @param  mixed $request
     * @param  mixed $medicine
-    * @return void
+    * @return JsonResponse
     */
-   public function update(Request $request, Medicine $medicine)
+   public function update(Request $request, Medicine $medicine): JsonResponse
    {
       dd($medicine);
       $validated = $request->validate([
@@ -74,16 +76,21 @@ class MedicineApiService extends BaseApiService
 
       $medicine->update($request->only(['name', 'substance_id', 'manufacturer_id', 'price']));
 
-      return new MedicineResource($medicine);
+      $options = [
+         'operation' => 'Update',
+         'status' => 'Success',
+         'model' => $medicine
+      ];
+      return response()->json($options, 201);
    }
 
    /**
     * destroy
     *
     * @param  mixed $medicine
-    * @return void
+    * @return JsonResponse
     */
-   public function destroy($medicine)
+   public function destroy($medicine): JsonResponse
    {
       $medicine = Medicine::findOrFail($medicine);
       $options = [

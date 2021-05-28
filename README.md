@@ -15,8 +15,56 @@ Composer -version 2.0.14
 9.Type 'php artisan migrate'
 
 --------------------------API------------------------
-Method - GET | Endpoint - api/v1/medicines | Get all medicines
-Method - POST | Endpoint - api/v1/medicines | Insert new medicine essence in database
-Method - GET | Endpoint - api/v1/medicines/{id} | Get one medicine essence by id
-Method - PUT | Endpoint - api/v1/medicines/{id} | Update one medicine essence by id
-Method - DELETE | Endpoint - api/v1/medicines/{id} | Delete one medicine essence by id
+Method - GET | Endpoint - api/v1/medicines | Return - JSON | Status code - 200
+Get all medicines
+Format - 
+'{
+    "data": [
+        {
+            "id": (int),
+            "name": (string),
+            "substance_id": (int),
+            "manufacturer_id": (int),
+            "price": (int)
+        }
+        ...
+    ]
+}'
+
+Method - POST | Endpoint - api/v1/medicines | Return - JSON | Status code - 201
+Insert new medicine essence in database
+Format -
+'{
+   'operation' => (string)',
+   'status' => (string),
+   'model' => (Object))
+}'
+
+Method - GET | Endpoint - api/v1/medicines/{id} | Return - JSON | Status code - 200 
+Get one medicine essence by id
+Format -
+'{
+   "id": (int),
+   "name": (string),
+   "substance_id": (int),
+   "manufacturer_id": (int),
+   "price": (int)
+}'
+
+Method - PUT | Endpoint - api/v1/medicines/{id} | Return - JSON | Status code - 201
+Update one medicine essence by id
+Format -
+'{
+   'operation' => (string)',
+   'status' => (string),
+   'model' => (Object))
+}'
+
+Method - DELETE | Endpoint - api/v1/medicines/{id} | Return - JSON | Status code - 200
+Delete one medicine essence by id
+Format -
+'{
+   'operation' => (string)',
+   'status' => (string),
+   'model' => (Object))
+}'
