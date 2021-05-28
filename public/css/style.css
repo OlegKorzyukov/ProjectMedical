@@ -93,6 +93,9 @@ header h1 {
 }
 
 /* Content table */
+#content {
+    margin-bottom: 80px;
+}
 .content__table {
     width: 46%;
     margin: 0 auto;

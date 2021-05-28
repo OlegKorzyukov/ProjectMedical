@@ -4,21 +4,38 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Medicine;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Controllers\Interfaces\MedicineTypeInterface;
 
-class MedicineController extends Controller
+class MedicineController extends Controller implements MedicineTypeInterface
 {
-    public function store($name, $substanceId, $manufacturerId, $price)
+    /**
+     * store
+     *
+     * @param  mixed $name
+     * @param  mixed $substanceId
+     * @param  mixed $manufacturerId
+     * @param  mixed $price
+     * @return RedirectResponse
+     */
+    public function store(array $params): RedirectResponse
     {
         $newManufacturer = Medicine::create([
-            'name' => $name,
-            'substance_id' => $substanceId,
-            'manufacturer_id' => $manufacturerId,
-            'price' => $price,
+            'name' => $params['supplies_name'],
+            'substance_id' => $params['supplies_substance'],
+            'manufacturer_id' => $params['supplies_manufacturer'],
+            'price' => $params['supplies_price'],
         ]);
         return  redirect(route('home'));
     }
 
-    public function destroy(Request $request)
+    /**
+     * destroy
+     *
+     * @param  mixed $request
+     * @return void
+     */
+    public function destroy(Request $request): RedirectResponse
     {
         $medicineId = filter_var($request->input('medicineId', FILTER_SANITIZE_NUMBER_INT));
         Medicine::destroy((int)$medicineId);

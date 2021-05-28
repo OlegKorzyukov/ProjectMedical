@@ -6,6 +6,14 @@ use App\Http\Resources\MedicineResource;
 
 class BaseApiService
 {
+   /**
+    * responseConstructor
+    *
+    * @param  mixed $operation
+    * @param  mixed $status
+    * @param  mixed $model
+    * @return void
+    */
    public function responseConstructor(string $operation, string $status, MedicineResource $model)
    {
       $options = [

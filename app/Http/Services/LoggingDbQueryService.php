@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\File;
 
 class LoggingDbQueryService
 {
+   /**
+    * loggingQuery
+    *
+    * @return void
+    */
    public static function loggingQuery()
    {
       DB::listen(function ($query) {

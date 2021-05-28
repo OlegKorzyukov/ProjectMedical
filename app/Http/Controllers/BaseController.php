@@ -4,10 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateMedicineItem;
 use App\Http\Services\SuppliesService;
+use App\Http\Controllers\TypesManager;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Controllers\Interfaces\MedicineTypeInterface;
 
-class BaseController extends Controller
+class BaseController extends TypesManager
 {
-    public function index(SubstanceController $substanceController)
+    /**
+     * index
+     *
+     * @param  mixed $substanceController
+     * @return void
+     */
+    public function index()
     {
         return view('index', [
             'AllSubstance' => (new SuppliesService)->getAllSubstance(),
@@ -15,31 +24,40 @@ class BaseController extends Controller
             'AllMedicine' => (new SuppliesService)->getAllMedicine(),
         ]);
     }
-    public function store(CreateMedicineItem $request)
+    /**
+     * store
+     *
+     * @param  mixed $request
+     * @return RedirectResponse
+     */
+    public function store(CreateMedicineItem $request): RedirectResponse
     {
         $requestTable = mb_strtolower($request->input('supplies_list'));
-        $name = $request->input('supplies_name') ?? null;
-        $link = $request->input('supplies_link') ?? null;
-        $substanceId = $request->input('supplies_substance') ?? null;
-        $manufacturerId = $request->input('supplies_manufacturer') ?? null;
-        $price = $request->input('supplies_price') ?? null;
+        $this->make($requestTable)->store($request->input());
 
-        //DONT DO THIS
-        switch ($requestTable) {
-            case 'substance':
-                (new SubstanceController())->store($name);
-                break;
-            case 'manufacturer':
+        return redirect()->route('home');
+    }
 
-                (new ManufacturerController)->store($name, $link);
+    /**
+     * make
+     *
+     * @param  mixed $flag_string
+     * @return MedicineTypeInterface
+     */
+    public function make(string $flag_string): MedicineTypeInterface
+    {
+        switch ($flag_string) {
+            case self::SUBSTANCE:
+                return new SubstanceController();
                 break;
-            case 'medicine':
-                (new MedicineController)->store($name, $substanceId, $manufacturerId, $price);
+            case self::MANUFACTURER:
+                return new ManufacturerController();
+                break;
+            case self::MEDICINE:
+                return new MedicineController();
                 break;
             default:
                 die();
         }
-
-        return redirect()->route('home');
     }
 }
