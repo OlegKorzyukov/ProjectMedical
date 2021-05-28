@@ -90,3 +90,32 @@ header h1 {
 .category .content__card:nth-child(3) {
     background-color: #11670ba6;
 }
+
+/* Content table */
+.content__table {
+    width: 46%;
+    margin: 0 auto;
+}
+.content__table .content__table--row {
+    display: flex;
+    box-shadow: 1px 2px 4px rgb(136, 136, 136);
+}
+.content__table .content__table--row div {
+    border: 1px solid rgb(196, 196, 196);
+    padding: 10px;
+}
+.content__table .content__table--row .content__table--index {
+    text-align: center;
+    border-right: none;
+    width: 10%;
+}
+.content__table .content__table--row .content__table--value {
+    width: 90%;
+    padding-left: 20px;
+}
+.content__table.hidden {
+    display: none;
+}
+.content__card.active {
+    box-shadow: 10px 10px#e6e6e6;
+}

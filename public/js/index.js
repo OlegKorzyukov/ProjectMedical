@@ -10,7 +10,6 @@ function initChangeType(){
       switch(this.value){
          case 'manufacturer':
             html = `<input class="supplies_name input_field optional" name="supplies_link" type="url" placeholder="Ссылка на сайт">`;
-            $('.input__wrapper').append(html);
          break;
          case 'medicine':
             html = `
@@ -29,9 +28,10 @@ function initChangeType(){
             </div>
             </div>
             `;
-            $('.input__wrapper').append(html);
+         sendRequest('/supplies');
          break;
       }
+      $('.input__wrapper').append(html);
     });
 }
 
@@ -44,12 +44,17 @@ function removeOldInput ([...removeClass]) {
  function getCategoryList(){
    $('.category').on('click', function(e){
       const cardAttr = $(e.target).data('card-name');
+      $('.content__card').removeClass('active');
+      $(e.target).addClass('active');
+      
+      $('.content__table').addClass('hidden');
+      $('#' + cardAttr + ' .content__table').toggleClass('hidden');
       
    });
  }
 
- function sendRequest(){
-   const url = '/departments/all/users'; 
+ function sendRequest(url){
+   let token = document.querySelector('input[name=_token]').getAttribute('value');
    fetch(url, {
       headers: {
           "Content-Type": "application/json",
@@ -59,40 +64,16 @@ function removeOldInput ([...removeClass]) {
           },
       method: 'post',
       credentials: "same-origin",
-      body: JSON.stringify({
-          req: typeData,
-      })
   })
   .then((response) => {
       return response.json();
   })
   .then((data) => {
+   if(url.includes('supplies')){
       console.log(data);
-      const menuWrapper = document.querySelector('#menu-wrapper');
-      menuWrapper.classList.toggle('show');
-
-      /* if(typeData === 'getDepartmentInfo'){
-          showDepartmentTask(menuWrapper, data);
-       }else */ if(typeData === 'getMenuInfo'){
-          showMenuTargetTask(menuWrapper, data);
-       }else if(typeData === 'getUserList'){
-          showDepartmentUserListTask(menuWrapper, data);
-       }
-       menuWrapper.addEventListener('click', function taskDataEvent(e){
-          let target = e.target;
-          let child = e.target.childElementCount;
-          let offsetChild = target.offsetParent.firstChild;
-          
-          if(offsetChild.className === 'task-menu-site'){
-              showSubMenu(target, child);
-          }
-          if(offsetChild.className === 'department-task-list' || offsetChild.className === 'department-user-list'){
-              selectDepartmentTask(target);
-          }
-          clickActionCloseOpenTask(targetTask,target, this, taskDataEvent);
-       });
+   }
  })
   .catch(function(error) {
-      console.log(error);
+     return error;
   });
  }

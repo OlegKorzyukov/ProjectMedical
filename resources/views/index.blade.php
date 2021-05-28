@@ -39,9 +39,51 @@
             </div>
         </section>
         <section id="content">
-            <div id="substance"></div>
-            <div id="manufacturer"></div>
-            <div id="medicine"></div>
+            <div id="substance" class='content__card'>
+                @foreach($AllSubstance as $key => $value)
+                <div class="content__table hidden">
+                    <div class="content__table--row">
+                        <div class="content__table--index">
+                            {{++$key}}
+                        </div>
+                        <div class="content__table--value">
+                            {{$value->name}}
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            <div id="manufacturer" class='content__card'>
+                @foreach($AllManufacture as $key => $value)
+                <div class="content__table hidden">
+                    <div class="content__table--row">
+                        <div class="content__table--index">
+                            {{++$key}}
+                        </div>
+                        <div class="content__table--value">
+                            {{$value->name}}
+                        </div>
+                        <div class="content__table--value">
+                            <a href="{{$value->link}}">{{strip_string($value->link)}}</a>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            <div id="medicine" class='content__card'>
+                @foreach($AllMedicine as $key => $value)
+                <div class="content__table hidden">
+                    <div class="content__table--row">
+                        <div class="content__table--index">
+                            {{++$key}}
+                        </div>
+                        <div class="content__table--value">
+                            {{$value->name}}
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
         </section>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

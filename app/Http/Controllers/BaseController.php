@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateMedicineItem;
+use App\Http\Services\SuppliesService;
 
 class BaseController extends Controller
 {
-    public function index()
+    public function index(SubstanceController $substanceController)
     {
-        return view('index');
+        return view('index', [
+            'AllSubstance' => (new SuppliesService)->getAllSubstance(),
+            'AllManufacture' => (new SuppliesService)->getAllManufacturer(),
+            'AllMedicine' => (new SuppliesService)->getAllMedicine(),
+        ]);
     }
     public function store(CreateMedicineItem $request)
     {
