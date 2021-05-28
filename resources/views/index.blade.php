@@ -17,26 +17,31 @@
             @include('parts.form')
         </section>
         <section class="category">
-            <div class="content__card">
+            <div class="content__card" data-card-name='substance'>
                 <h2 class="content__card--title">Действующие вещества</h2>
                 <div class="content__card--body">
 
                     <span class="content__card--count"></span>
                 </div>
             </div>
-            <div class="content__card">
+            <div class="content__card" data-card-name='manufacturer'>
                 <h2 class="content__card--title">Производитель</h2>
                 <div class="content__card--body">
 
                     <span class="content__card--count"></span>
                 </div>
             </div>
-            <div class="content__card">
+            <div class="content__card" data-card-name='medicine'>
                 <h2 class="content__card--title">Лекарственное средство</h2>
                 <div class="content__card--body">
                     <span class="content__card--count"></span>
                 </div>
             </div>
+        </section>
+        <section id="content">
+            <div id="substance"></div>
+            <div id="manufacturer"></div>
+            <div id="medicine"></div>
         </section>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

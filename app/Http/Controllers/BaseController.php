@@ -12,7 +12,6 @@ class BaseController extends Controller
     }
     public function store(CreateMedicineItem $request)
     {
-
         $requestTable = mb_strtolower($request->input('supplies_list'));
         $name = $request->input('supplies_name') ?? null;
         $link = $request->input('supplies_link') ?? null;
