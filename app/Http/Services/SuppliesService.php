@@ -17,10 +17,9 @@ class SuppliesService
     */
    public function splitCollection(Substance $substance, Manufacturer $manufacturer)
    {
-      $substance = $substance->all()->push('substance');
-      $merged = $substance->mergeRecursive($manufacturer->all()->push('manufacturer'));
-
-      return $merged->all();
+      $substances = ['substance' => $substance->all()];
+      $manufacturers = ['manufacturer' => $manufacturer->all()];
+      return array_merge($substances, $manufacturers);
    }
 
    /**

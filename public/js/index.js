@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
    initChangeType();
    getCategoryList();
@@ -5,6 +6,7 @@ $(document).ready(function () {
 });
 
 function initChangeType(){
+   
    $('.supplies_type').on('change', function() {
       let html = '';
       removeOldInput(['input_field.optional','select_wrapper.optional','select_wrapper.optional']);
@@ -30,6 +32,7 @@ function initChangeType(){
             </div>
             `;
          sendRequest('/supplies');
+         
          break;
       }
       $('.input__wrapper').append(html);
@@ -54,7 +57,7 @@ function removeOldInput ([...removeClass]) {
    });
  }
 
- function sendRequest(url){
+  function sendRequest(url){
    let token = document.querySelector('input[name=_token]').getAttribute('value');
    fetch(url, {
       headers: {
@@ -70,7 +73,7 @@ function removeOldInput ([...removeClass]) {
       return response.json();
   })
   .then((data) => {
-   console.log(data);
+   insertResponseData(data);
  })
   .catch(function(error) {
      return error;
@@ -81,4 +84,17 @@ function showEditButton(){
    $('.content__table--value').hover(function(e){
       $(this).find('.table-edit-value').toggleClass('hidden');
    });
+}
+
+function insertResponseData(data){
+   for(let key in data){
+      for(let value of data[key]){
+         if(key === 'substance'){
+            $('.supplies_substance').append(`<option value="${value.id}">${value.name}</option>`);
+         }
+         if(key === 'manufacturer'){
+            $('.supplies_manufacturer').append(`<option value="${value.id}">${value.name}</option>`);
+         }
+       }
+   }
 }
