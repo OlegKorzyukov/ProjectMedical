@@ -10,8 +10,8 @@ class SuppliesService
 {
    public function splitCollection(Substance $substance, Manufacturer $manufacturer)
    {
-      $substance = $substance->all();
-      $merged = $substance->mergeRecursive($manufacturer->all());
+      $substance = $substance->all()->push('substance');
+      $merged = $substance->mergeRecursive($manufacturer->all()->push('manufacturer'));
 
       return $merged->all();
    }

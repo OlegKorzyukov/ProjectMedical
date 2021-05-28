@@ -48,6 +48,15 @@
                         </div>
                         <div class="content__table--value">
                             {{$value->name}}
+                            <span class="table-edit-value hidden">Изменить</span>
+                        </div>
+                        <div class="content__table--delete">
+                            <form method="POST" action="{{ route('substance.destroy') }}">
+                                @csrf
+                                @method('DELETE')
+                                <input type="hidden" name="substanceId" value="{{ $value->id }}">
+                                <a href="#" onclick="this.closest('form').submit();return false;">X</a>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -62,9 +71,18 @@
                         </div>
                         <div class="content__table--value">
                             {{$value->name}}
+                            <span class="table-edit-value hidden">Изменить</span>
                         </div>
-                        <div class="content__table--value">
-                            <a href="{{$value->link}}">{{strip_string($value->link)}}</a>
+                        <div class="content__table--value table-link">
+                            <a href="{{$value->link}}">{{ $value->link }} <span class="table-edit-value hidden">Изменить</span></a>
+                        </div>
+                        <div class="content__table--delete">
+                            <form method="POST" action="{{ route('manufacture.destroy') }}">
+                                @csrf
+                                @method('DELETE')
+                                <input type="hidden" name="manufactureId" value="{{ $value->id }}">
+                                <a href="#" onclick="this.closest('form').submit();return false;">X</a>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -79,6 +97,15 @@
                         </div>
                         <div class="content__table--value">
                             {{$value->name}}
+                            <span class="table-edit-value hidden">Изменить</span>
+                        </div>
+                        <div class="content__table--delete">
+                            <form method="POST" action="{{ route('medicine.destroy') }}">
+                                @csrf
+                                @method('DELETE')
+                                <input type="hidden" name="medicineId" value="{{ $value->id }}">
+                                <a href="#" onclick="this.closest('form').submit();return false;">X</a>
+                            </form>
                         </div>
                     </div>
                 </div>

@@ -17,4 +17,12 @@ class MedicineController extends Controller
         ]);
         return  redirect(route('home'));
     }
+
+    public function destroy(Request $request)
+    {
+        $medicineId = filter_var($request->input('medicineId', FILTER_SANITIZE_NUMBER_INT));
+        Medicine::destroy((int)$medicineId);
+
+        return  redirect(route('home'));
+    }
 }

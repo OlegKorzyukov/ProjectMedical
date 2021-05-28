@@ -1,6 +1,7 @@
 $(document).ready(function () {
    initChangeType();
    getCategoryList();
+   showEditButton();
 });
 
 function initChangeType(){
@@ -69,11 +70,15 @@ function removeOldInput ([...removeClass]) {
       return response.json();
   })
   .then((data) => {
-   if(url.includes('supplies')){
-      console.log(data);
-   }
+   console.log(data);
  })
   .catch(function(error) {
      return error;
   });
  }
+
+function showEditButton(){
+   $('.content__table--value').hover(function(e){
+      $(this).find('.table-edit-value').toggleClass('hidden');
+   });
+}
