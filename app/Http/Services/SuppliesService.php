@@ -41,6 +41,7 @@ class SuppliesService
    {
       return (new Manufacturer)->all();
    }
+
    /**
     * getAllMedicine
     *
@@ -49,5 +50,15 @@ class SuppliesService
    public function getAllMedicine()
    {
       return (new Medicine)->all();
+   }
+
+   public function getNameById($id, $table = 'null')
+   {
+      if ('manufacturer' === mb_strtolower($table)) {
+         return (new Manufacturer)->findOrFail($id)->name;
+      }
+      if ('substance' === mb_strtolower($table)) {
+         return (new Substance)->findOrFail($id)->name;
+      }
    }
 }

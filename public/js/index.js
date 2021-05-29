@@ -3,6 +3,7 @@ $(document).ready(function () {
    initChangeType();
    getCategoryList();
    showEditButton();
+   clickEditButton();
 });
 
 function initChangeType(){
@@ -85,6 +86,46 @@ function showEditButton(){
       $(this).find('.table-edit-value').toggleClass('hidden');
    });
 }
+function clickEditButton(){
+   $('.table-edit-value').off('click');
+   $('.table-edit-value').click(function(e){
+      $(this).text('Сохранить').addClass('save');
+      clickSaveButton();
+      $(this).siblings('.content__table-edit-text').attr('contenteditable', 'true').addClass('bordered');
+   });
+}
+//TODO: Keep DRY, remove fetch, change click save
+function clickSaveButton(){
+   $('.save').click(function(e){
+      $(this).text('Изменить');
+      $(this).siblings('.content__table-edit-text').attr('contenteditable', 'false').removeClass('bordered');
+      const 
+      let token = document.querySelector('input[name=_token]').getAttribute('value');
+         fetch(url, {
+            headers: {
+               "Content-Type": "application/json",
+               "Accept": "application/json, text-plain, */*",
+               "X-Requested-With": "XMLHttpRequest",
+               "X-CSRF-TOKEN": token
+               },
+            method: 'post',
+            credentials: "same-origin",
+            body: JSON.stringify({
+               req: [''=>'', ''=>''],
+           })
+      })
+      .then((response) => {
+            return response.json();
+      })
+      .then((data) => {
+         console.log(data);
+      })
+      .catch(function(error) {
+         return error;
+      });
+   });
+}
+
 
 function insertResponseData(data){
    for(let key in data){

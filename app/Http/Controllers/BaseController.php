@@ -22,6 +22,7 @@ class BaseController extends TypesManager
             'AllSubstance' => (new SuppliesService)->getAllSubstance(),
             'AllManufacture' => (new SuppliesService)->getAllManufacturer(),
             'AllMedicine' => (new SuppliesService)->getAllMedicine(),
+            'SuppliesService' => new SuppliesService,
         ]);
     }
     /**

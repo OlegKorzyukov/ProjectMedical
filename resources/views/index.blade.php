@@ -11,7 +11,6 @@
 </head>
 
 <body>
-    {{$AllMedicine}}
     <div class="wrapper">
         @include('parts.header')
         <section class="input__supplies">
@@ -41,14 +40,14 @@
         </section>
         <section id="content">
             <div id="substance" class='content__card'>
-                @foreach($AllSubstance as $key => $value)
                 <div class="content__table hidden">
-                    <div class="content__table--row">
+                    @foreach($AllSubstance as $key => $value)
+                    <div class="content__table--row" data-substance-id={{ $value->id }}>
                         <div class="content__table--index">
                             {{++$key}}
                         </div>
                         <div class="content__table--value">
-                            <div class="content__table-edit-text" contenteditable="true">{{$value->name}}</div>
+                            <div class="content__table-edit-text" data-substance-name={{ $value->name }}>{{$value->name}}</div>
                             <span class="table-edit-value hidden">Изменить</span>
                         </div>
                         <div class="content__table--delete">
@@ -60,22 +59,23 @@
                             </form>
                         </div>
                     </div>
+                    @endforeach
                 </div>
-                @endforeach
             </div>
             <div id="manufacturer" class='content__card'>
-                @foreach($AllManufacture as $key => $value)
                 <div class="content__table hidden">
-                    <div class="content__table--row">
+                    @foreach($AllManufacture as $key => $value)
+                    <div class="content__table--row" data-manufacturer-id={{ $value->id }}>
                         <div class="content__table--index">
                             {{++$key}}
                         </div>
                         <div class="content__table--value">
-                            <div class="content__table-edit-text" contenteditable="true">{{$value->name}}</div>
+                            <div class="content__table-edit-text" data-manufacturer-name={{ $value->name }}>{{$value->name}}</div>
                             <span class="table-edit-value hidden">Изменить</span>
                         </div>
                         <div class="content__table--value table-link">
-                            <a contenteditable="true" href="{{$value->link}}">{{ $value->link }} <span class="table-edit-value hidden">Изменить</span></a>
+                            <a href="{{$value->link}}" data-manufacturer-link={{ $value->name }}>{{ $value->link }}</a>
+                            <span class="table-edit-value hidden">Изменить</span>
                         </div>
                         <div class="content__table--delete">
                             <form method="POST" action="{{ route('manufacture.destroy') }}">
@@ -86,22 +86,30 @@
                             </form>
                         </div>
                     </div>
+                    @endforeach
                 </div>
-                @endforeach
             </div>
             <div id="medicine" class='content__card'>
-                @foreach($AllMedicine as $key => $value)
                 <div class="content__table hidden">
-                    <div class="content__table--row">
+                    @foreach($AllMedicine as $key => $value)
+                    <div class="content__table--row" data-medicine-id={{ $value->id }}>
                         <div class="content__table--index">
                             {{++$key}}
                         </div>
                         <div class="content__table--value">
-                            <div class="content__table-edit-text" contenteditable="true">{{$value->name}}</div>
+                            <div class="content__table-edit-text" data-medicine-name={{ $value->name }}>{{$value->name}}</div>
                             <span class="table-edit-value hidden">Изменить</span>
                         </div>
                         <div class="content__table--value">
-                            <div class="content__table-edit-text" contenteditable="true">{{$value->price}}</div>
+                            <div class="content__table-edit-text">{{$SuppliesService->getNameById($value->substance_id, 'substance')}}</div>
+                            <span class="table-edit-value hidden">Изменить</span>
+                        </div>
+                        <div class="content__table--value">
+                            <div class="content__table-edit-text">{{$SuppliesService->getNameById($value->manufacturer_id, 'manufacturer')}}</div>
+                            <span class="table-edit-value hidden">Изменить</span>
+                        </div>
+                        <div class="content__table--value">
+                            <div class="content__table-edit-text" data-medicine-price={{ $value->price }}>{{$value->price}}</div>
                             <span class="table-edit-value hidden">Изменить</span>
                         </div>
                         <div class="content__table--delete">
@@ -113,8 +121,8 @@
                             </form>
                         </div>
                     </div>
+                    @endforeach
                 </div>
-                @endforeach
             </div>
         </section>
     </div>

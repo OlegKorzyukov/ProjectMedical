@@ -19,7 +19,7 @@ use App\Http\Services\MedicineApiService;
 });*/
 
 Route::fallback(function () {
-    abort(404, 'API resource not found');
+    return response()->json(['error' => 'Not Found!'], 404);
 });
 Route::prefix('/')->group(function () {
     Route::apiResource('medicines', MedicineApiService::class);

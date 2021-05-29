@@ -12,6 +12,10 @@ header h1 {
     color: #fff;
     font-weight: bold;
 }
+.bordered {
+    border: 1px solid #444;
+    border-radius: 5px;
+}
 .input__supplies {
     display: flex;
     justify-content: center;
@@ -104,10 +108,6 @@ header h1 {
     display: flex;
     box-shadow: 1px 2px 4px rgb(136, 136, 136);
 }
-.content__table .content__table--row div {
-    border: 1px solid rgb(196, 196, 196);
-    padding: 10px;
-}
 .content__table .content__table--row .content__table--index {
     text-align: center;
     border-right: none;
@@ -116,6 +116,10 @@ header h1 {
 .content__table .content__table--row .content__table--value {
     width: 90%;
     padding-left: 20px;
+    border: 1px solid rgb(196, 196, 196);
+    padding: 10px;
+    display: flex;
+    align-items: center;
 }
 .content__table.hidden {
     display: none;
@@ -133,12 +137,22 @@ header h1 {
 .table-edit-value.hidden {
     display: none;
 }
+.content__table--delete,
+.content__table--index {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(196, 196, 196);
+    padding: 10px;
+}
 .content__table--delete a {
     color: red !important;
     font-weight: bold;
     font-size: 16px;
+    text-decoration: none;
 }
 .content__table-edit-text {
     width: 87%;
+    padding: 8px;
     display: inline-block;
 }

@@ -18,18 +18,16 @@ Composer -version 2.0.14
 Method - GET | Endpoint - api/v1/medicines | Return - JSON | Status code - 200
 Get all medicines
 Format - 
-'{
-    "data": [
-        {
-            "id": (int),
-            "name": (string),
-            "substance_id": (int),
-            "manufacturer_id": (int),
-            "price": (int)
-        }
-        ...
-    ]
-}'
+'[
+   {
+      "id": (int),
+      "name": (string),
+      "substance_id": (int),
+      "manufacturer_id": (int),
+      "price": (int)
+   },
+   ...
+]'
 
 Method - POST | Endpoint - api/v1/medicines | Return - JSON | Status code - 201
 Insert new medicine essence in database

@@ -10,6 +10,7 @@ use App\Models\Medicine;
 
 // TODO: Rate Limit on request
 //TODO: take out validation and message 
+// TODO: create request validation controller
 class MedicineApiService extends BaseApiService
 {
    /**
@@ -30,14 +31,13 @@ class MedicineApiService extends BaseApiService
     */
    public function store(Request $request): JsonResponse
    {
-      dd($request);
       $validated = $request->validate([
-         'name' => 'max:255',
-         'substance_id' => 'number',
-         'manufacturer_id' => 'number',
-         'price' => 'number',
+         'name' => 'string|max:255',
+         'substance_id' => 'numeric|exists:substances,id',
+         'manufacturer_id' => 'numeric|exists:manufacturers,id',
+         'price' => 'numeric',
       ]);
-      $medicine = Medicine::create($validated);
+      $medicine = Medicine::create($request->only(['name', 'substance_id', 'manufacturer_id', 'price']));
       $options = [
          'operation' => 'Create',
          'status' => 'Success',
@@ -66,12 +66,11 @@ class MedicineApiService extends BaseApiService
     */
    public function update(Request $request, Medicine $medicine): JsonResponse
    {
-      dd($medicine);
       $validated = $request->validate([
          'name' => 'string|max:255',
-         'substance_id' => 'number',
-         'manufacturer_id' => 'number',
-         'price' => 'number',
+         'substance_id' => 'numeric|exists:substances,id',
+         'manufacturer_id' => 'numeric|exists:manufacturers,id',
+         'price' => 'numeric',
       ]);
 
       $medicine->update($request->only(['name', 'substance_id', 'manufacturer_id', 'price']));
