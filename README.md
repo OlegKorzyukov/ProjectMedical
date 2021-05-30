@@ -18,14 +18,14 @@ Composer -version 2.0.14
 Method - GET | Endpoint - api/v1/medicines | Return - JSON | Status code - 200
 Get all medicines
 Format - 
-'[
-   {
-      "id": (int),
-      "name": (string),
-      "substance_id": (int),
-      "manufacturer_id": (int),
-      "price": (int)
-   },
+'[ 
+   "data": {
+        "id": (id)),
+        "name": (string)),
+        "substance_id": (id)),
+        "manufacturer_id": (id),
+        "price": (int))
+    },
    ...
 ]'
 
@@ -42,11 +42,13 @@ Method - GET | Endpoint - api/v1/medicines/{id} | Return - JSON | Status code - 
 Get one medicine essence by id
 Format -
 '{
-   "id": (int),
-   "name": (string),
-   "substance_id": (int),
-   "manufacturer_id": (int),
-   "price": (int)
+   "data": {
+      "id": (id)),
+      "name": (string)),
+      "substance_id": (id)),
+      "manufacturer_id": (id),
+      "price": (int))
+   }
 }'
 
 Method - PUT | Endpoint - api/v1/medicines/{id} | Return - JSON | Status code - 201

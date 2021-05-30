@@ -16,11 +16,11 @@ class MedicineApiService extends BaseApiService
    /**
     * index
     *
-    * @return Response
+    * @return MedicineResource
     */
-   public function index(): Response
+   public function index(): MedicineResource
    {
-      return response(new MedicineResource(Medicine::all()), 200);
+      return new MedicineResource(Medicine::all());
    }
 
    /**
@@ -50,11 +50,11 @@ class MedicineApiService extends BaseApiService
     * show
     *
     * @param  mixed $medicine
-    * @return Response
+    * @return MedicineResource
     */
-   public function show($medicine): Response
+   public function show($medicine): MedicineResource
    {
-      return response(new MedicineResource(Medicine::findOrFail($medicine)), 200);
+      return new MedicineResource(Medicine::findOrFail($medicine));
    }
 
    /**
