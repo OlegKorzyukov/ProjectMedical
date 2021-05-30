@@ -11,11 +11,11 @@ INSTALL
 2. Install Composer from https://getcomposer.org
 3. Install MySQL from https://www.mysql.com
 4. Install GIT from https://git-scm.com
-5. Download project from Github to your work directory "git clone https://github.com/Vorbis95/TestProjectMedicalLaravel.git"
+5. Download project from Github to your work directory `git clone https://github.com/Vorbis95/TestProjectMedicalLaravel.git`
 6. Go to project folder
-7. If your Сomposer install in global scope, type 'composer install', else type 'php bin/composer install'
+7. If your Сomposer install in global scope, type `composer install`, else type `php bin/composer install`
 8. Set your configuration in file '.env'
-9. Type 'php artisan migrate'
+9. Type `php artisan migrate`
 
 API
 ============================================
