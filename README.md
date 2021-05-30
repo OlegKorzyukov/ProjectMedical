@@ -20,189 +20,191 @@ INSTALL
 API
 ============================================
 
-Method - **GET**
-Endpoint - **api/v1/medicines**
-Return - **JSON**
-Status code - **200**
+Method - **GET**  
+Endpoint - **api/v1/medicines**  
+Return - **JSON**  
+Status code - **200**  
 Description - **Get all medicines essence**
 
-**Output:**
-`[` 
-   `"data": {`
-        `"id": (id),`
-        `"name": (string),`
-        `"substance_id": (id),`
-        `"manufacturer_id": (id),`
-        `"price": (int)`
-    `},
-   `...`
+**Output:**  
+`[`   
+   `"data": {`  
+        `"id": (id),`  
+        `"name": (string),`  
+        `"substance_id": (id),`  
+        `"manufacturer_id": (id),`  
+        `"price": (int)`  
+    `},  
+   `...`  
 `]`
 
 ***
 
-Method - **POST**
-Endpoint - **api/v1/medicines**
-Return - **JSON**
-Status code - **201**
+Method - **POST**  
+Endpoint - **api/v1/medicines**  
+Return - **JSON**  
+Status code - **201**  
 Description - **Insert new medicine essence in database**
 
-**Output:**
-`{`
-   `'operation' => (string)',`
-   `'status' => (string),`
-   `'model' => (Object)`
+**Output:**  
+`{`  
+   `'operation' => (string)',`  
+   `'status' => (string),`  
+   `'model' => (Object)`  
 `}`
 
 ***
 
-Method - **GET**
-Endpoint - **api/v1/medicines/{id}**
-Return - **JSON**
-Status code - **200** 
+Method - **GET**  
+Endpoint - **api/v1/medicines/{id}**  
+Return - **JSON**  
+Status code - **200**  
 Description - **Get one medicine essence by id**
 
-**Output:**
-`{`
-   `"data": {`
-      `"id": (id),`
-      `"name": (string),`
-      `"substance_id": (id),`
-      `"manufacturer_id": (id),`
-      `"price": (int)`
-   `}`
+**Output:**  
+`{`  
+   `"data": {`  
+      `"id": (id),`  
+      `"name": (string),`  
+      `"substance_id": (id),`  
+      `"manufacturer_id": (id),`  
+      `"price": (int)`  
+   `}`  
 `}`
 
 ***
 
-Method - **PUT**
-Endpoint - **api/v1/medicines/{id}**
-Return - **JSON**
-Status code - **201**
+Method - **PUT**  
+Endpoint - **api/v1/medicines/{id}**  
+Return - **JSON**  
+Status code - **201**  
 Description - **Update one medicine essence by id**
 
-**Output:**
-`{
-   `'operation' => (string),`
-   `'status' => (string),`
-   `'model' => (Object)`
+**Output:**  
+`{  
+   `'operation' => (string),`  
+   `'status' => (string),`  
+   `'model' => (Object)`  
 `}`
 
 ***
 
-Method - **DELETE**
-Endpoint - **api/v1/medicines/{id}**
-Return - **JSON**
-Status code - **200**
+Method - **DELETE**  
+Endpoint - **api/v1/medicines/{id}**  
+Return - **JSON**  
+Status code - **200**  
 Description - **Delete one medicine essence by id**
 
-**Output:**
-`{`
-   `'operation' => (string),`
-   `'status' => (string),`
-   `'model' => (Object)`
+**Output:**  
+`{`  
+   `'operation' => (string),`  
+   `'status' => (string),`  
+   `'model' => (Object)`  
 `}`
 
+***
 ### JWT ###
 
-Method - **POST**
-Endpoint - **api/v1/auth/login**
-Return - **JSON**
-Status code - **200**
+***
+Method - **POST**  
+Endpoint - **api/v1/auth/login**  
+Return - **JSON**  
+Status code - **200**  
 Description - **Login with user email and password**
 
-**Input required:**
-`{`
-   `"email": (string),`
-   `"password": (string)`
+**Input required:**  
+`{`  
+   `"email": (string),`  
+   `"password": (string)`  
 `}`
 
-**Output:**
-`{`
-    `"access_token": (string),`
-    `"token_type": "bearer",`
-    `"expires_in": (int)`
+**Output:**  
+`{`  
+    `"access_token": (string),`  
+    `"token_type": "bearer",`  
+    `"expires_in": (int)`  
 `}`
 
 ***
 
-Method - **POST**
-Endpoint - **api/v1/auth/logout**
-Return - **JSON**
-Status code - **200**
+Method - **POST**  
+Endpoint - **api/v1/auth/logout**  
+Return - **JSON**  
+Status code - **200**  
 Description - **Logout user**
 
-**Input required:**
-*Header:*  
+**Input required:**  
+*Header:*
    `Authorization: Bearer (your_token)`
 
-**Output:**
-`{`
-    `"message": "Successfully logged out"`
-`}`
+**Output:**  
+`{`  
+    `"message": "Successfully logged out"`  
+`}`  
 
 ***
 
-Method - **POST**
-Endpoint - **api/v1/auth/me**
-Return - **JSON**
-Status code - **200**
+Method - **POST**  
+Endpoint - **api/v1/auth/me**  
+Return - **JSON**  
+Status code - **200**  
 Description - **Get information about login user**
 
-**Input required:**
-*Header:*  
+**Input required:**  
+*Header:*
    `Authorization: Bearer (your_token)`
 
 **Output:**
-`{`
-    `"message": "Successfully logged out"`
+`{`  
+    `"message": "Successfully logged out"`  
 `}`
 
 ***
 
-Method - **POST**
-Endpoint - **api/v1/auth/refresh**
-Return - **JSON**
-Status code - **200**
-Description - **Refresh access token**
+Method - **POST**  
+Endpoint - **api/v1/auth/refresh**  
+Return - **JSON**  
+Status code - **200**  
+Description - **Refresh access token**  
 
-**Input required:**
-*Header:* 
+**Input required:**  
+*Header:*
    `Authorization: Bearer (your_token)`
 
-**Output:**
-`{`
-    `"access_token": (string),`
-    `"token_type": "bearer",`
-    `"expires_in": (int)`
+**Output:**  
+`{`  
+    `"access_token": (string),`  
+    `"token_type": "bearer",`  
+    `"expires_in": (int)`  
 `}`
 
 ***
 
-Method - **POST**
-Endpoint - **api/v1/auth/register**
-Return - **JSON**
-Status code - **200**
-Description - **Refresh access token**
+Method - **POST**  
+Endpoint - **api/v1/auth/register**  
+Return - **JSON**  
+Status code - **200**  
+Description - **Refresh access token**  
 
-**Input required:**
-*Header:*  
+**Input required:**  
+*Header:*
    `Authorization: Bearer (your_token)`
 
-`{
-   `"name": (string),`
-   `"email": (string),`
-   `"password": (string),`
-   `"password_confirmation": (string)`
+`{  
+   `"name": (string),`  
+   `"email": (string),`  
+   `"password": (string),`  
+   `"password_confirmation": (string)`  
 }`
 
 **Output:**
-`{`
-    `"message": "User successfully registered",`
-    `"user": {`
-        `"name": (string),`
-        `"email": (string),`
-        `"updated_at": (string),`
-        `"created_at": (string),`
-        `"id": (int)`
-    `}`
-`}`
+`{`  
+    `"message": "User successfully registered",`  
+    `"user": {`  
+        `"name": (string),`  
+        `"email": (string),`  
+        `"updated_at": (string),`  
+        `"created_at": (string),`  
+        `"id": (int)`  
+    `}`  
+`}`  
