@@ -32,7 +32,7 @@ function initChangeType(){
             </div>
             </div>
             `;
-        sendRequest('/supplies', null ,'PUT').then((data) => {
+        sendRequest('/supplies', null ,'POST').then((data) => {
             insertResponseData(data);
         });
          
@@ -109,6 +109,8 @@ function clickEditButton(){
 function clickSaveButton(obj){
       $(obj).text('Изменить').removeClass('save');
       $(obj).siblings('.content__table-edit-text').attr('contenteditable', 'false').removeClass('bordered');
+      $(obj).siblings('.content__table--manufacturer').attr('disabled','');
+      $(obj).siblings('.content__table--substance').attr('disabled', '');
       let url = '';
       
       let dataType = $(obj).closest('.content__table--row').attr('data-type');

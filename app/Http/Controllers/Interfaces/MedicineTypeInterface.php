@@ -10,7 +10,7 @@ interface MedicineTypeInterface
    /**
     * type
     *
-    * @return string
+    * @return \Illuminate\Http\RedirectResponse
     */
    public function store(array $values): RedirectResponse;
 }

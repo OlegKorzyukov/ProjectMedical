@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
-use JWTAuth;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -65,6 +63,7 @@ class AuthController extends Controller
         $validation = $request->validate([
             'name' => 'required|string|between:2,100',
             'email' => 'required|string|email|max:100|unique:users',
+            'password' => 'required|string|confirmed|min:6',
             'password' => 'required|string|confirmed|min:6',
         ]);
 

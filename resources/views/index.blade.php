@@ -117,7 +117,7 @@
                             <span class="table-edit-value hidden">Изменить</span>
                         </div>
                         <div class="content__table--value">
-                            <div class="content__table-edit-text price">{{$value->price}}</div>
+                            <div class="content__table-edit-text price">{{coins_to_bucks($value->price)}}</div>
                             <span class="table-edit-value hidden">Изменить</span>
                         </div>
                         <div class="content__table--delete">
