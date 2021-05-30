@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Http\Services\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Resources\MedicineResource;

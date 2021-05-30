@@ -20,11 +20,11 @@ Get all medicines
 Format - 
 '[ 
    "data": {
-        "id": (id)),
-        "name": (string)),
-        "substance_id": (id)),
+        "id": (id),
+        "name": (string),
+        "substance_id": (id),
         "manufacturer_id": (id),
-        "price": (int))
+        "price": (int)
     },
    ...
 ]'
@@ -35,7 +35,7 @@ Format -
 '{
    'operation' => (string)',
    'status' => (string),
-   'model' => (Object))
+   'model' => (Object)
 }'
 
 Method - GET | Endpoint - api/v1/medicines/{id} | Return - JSON | Status code - 200 
@@ -43,11 +43,11 @@ Get one medicine essence by id
 Format -
 '{
    "data": {
-      "id": (id)),
-      "name": (string)),
-      "substance_id": (id)),
+      "id": (id),
+      "name": (string),
+      "substance_id": (id),
       "manufacturer_id": (id),
-      "price": (int))
+      "price": (int)
    }
 }'
 
@@ -57,7 +57,7 @@ Format -
 '{
    'operation' => (string)',
    'status' => (string),
-   'model' => (Object))
+   'model' => (Object)
 }'
 
 Method - DELETE | Endpoint - api/v1/medicines/{id} | Return - JSON | Status code - 200
@@ -66,5 +66,5 @@ Format -
 '{
    'operation' => (string)',
    'status' => (string),
-   'model' => (Object))
+   'model' => (Object)
 }'
