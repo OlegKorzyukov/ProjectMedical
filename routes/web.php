@@ -25,3 +25,7 @@ Route::post('/supplies', [SuppliesService::class, 'splitCollection']);
 Route::delete('/substance/destroy', [SubstanceController::class, 'destroy'])->name('substance.destroy');
 Route::delete('/manufacture/destroy', [ManufacturerController::class, 'destroy'])->name('manufacture.destroy');
 Route::delete('/medicine/destroy', [MedicineController::class, 'destroy'])->name('medicine.destroy');
+
+Route::put('/substance/update', [SubstanceController::class, 'update'])->name('substance.update');
+Route::put('/manufacture/update', [ManufacturerController::class, 'update'])->name('manufacture.update');
+Route::put('/medicine/update', [MedicineController::class, 'update'])->name('medicine.update');

@@ -42,12 +42,12 @@
             <div id="substance" class='content__card'>
                 <div class="content__table hidden">
                     @foreach($AllSubstance as $key => $value)
-                    <div class="content__table--row" data-substance-id={{ $value->id }}>
+                    <div class="content__table--row" data-type="substance" data-id={{ $value->id }}>
                         <div class="content__table--index">
                             {{++$key}}
                         </div>
                         <div class="content__table--value">
-                            <div class="content__table-edit-text" data-substance-name={{ $value->name }}>{{$value->name}}</div>
+                            <div class="content__table-edit-text name">{{$value->name}}</div>
                             <span class="table-edit-value hidden">Изменить</span>
                         </div>
                         <div class="content__table--delete">
@@ -65,16 +65,16 @@
             <div id="manufacturer" class='content__card'>
                 <div class="content__table hidden">
                     @foreach($AllManufacture as $key => $value)
-                    <div class="content__table--row" data-manufacturer-id={{ $value->id }}>
+                    <div class="content__table--row" data-type="manufacturer" data-id={{ $value->id }}>
                         <div class="content__table--index">
                             {{++$key}}
                         </div>
                         <div class="content__table--value">
-                            <div class="content__table-edit-text" data-manufacturer-name={{ $value->name }}>{{$value->name}}</div>
+                            <div class="content__table-edit-text name">{{$value->name}}</div>
                             <span class="table-edit-value hidden">Изменить</span>
                         </div>
                         <div class="content__table--value table-link">
-                            <a href="{{$value->link}}" data-manufacturer-link={{ $value->name }}>{{ $value->link }}</a>
+                            <a class="content__table--link" href="{{$value->link}}">{{ $value->link }}</a>
                             <span class="table-edit-value hidden">Изменить</span>
                         </div>
                         <div class="content__table--delete">
@@ -92,24 +92,32 @@
             <div id="medicine" class='content__card'>
                 <div class="content__table hidden">
                     @foreach($AllMedicine as $key => $value)
-                    <div class="content__table--row" data-medicine-id={{ $value->id }}>
+                    <div class="content__table--row" data-type="medicine" data-id={{ $value->id }}>
                         <div class="content__table--index">
                             {{++$key}}
                         </div>
                         <div class="content__table--value">
-                            <div class="content__table-edit-text" data-medicine-name={{ $value->name }}>{{$value->name}}</div>
+                            <div class="content__table-edit-text name">{{$value->name}}</div>
                             <span class="table-edit-value hidden">Изменить</span>
                         </div>
                         <div class="content__table--value">
-                            <div class="content__table-edit-text">{{$SuppliesService->getNameById($value->substance_id, 'substance')}}</div>
+                            <select class="content__table--substance substance_id" disabled>
+                                @foreach($AllSubstance as $keySubstance => $valueSubstance)
+                                <option value="{{ $valueSubstance->id }}" {{ ($valueSubstance->id == $value->substance_id) ? 'selected' : '' }}>{{ $valueSubstance->name }}</option>
+                                @endforeach
+                            </select>
                             <span class="table-edit-value hidden">Изменить</span>
                         </div>
                         <div class="content__table--value">
-                            <div class="content__table-edit-text">{{$SuppliesService->getNameById($value->manufacturer_id, 'manufacturer')}}</div>
+                            <select class="content__table--manufacturer manufacturer_id" disabled>
+                                @foreach($AllManufacture as $keyManufacturer => $valueManufacturer)
+                                <option value="{{ $valueManufacturer->id }}" {{ ( $valueManufacturer->id == $value->manufacturer_id) ? 'selected' : '' }}>{{ $valueManufacturer->name }}</option>
+                                @endforeach
+                            </select>
                             <span class="table-edit-value hidden">Изменить</span>
                         </div>
                         <div class="content__table--value">
-                            <div class="content__table-edit-text" data-medicine-price={{ $value->price }}>{{$value->price}}</div>
+                            <div class="content__table-edit-text price">{{$value->price}}</div>
                             <span class="table-edit-value hidden">Изменить</span>
                         </div>
                         <div class="content__table--delete">

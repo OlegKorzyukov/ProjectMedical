@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Medicine;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Interfaces\MedicineTypeInterface;
 
+// TODO: get out validation to request controller
 class MedicineController extends Controller implements MedicineTypeInterface
 {
     /**
@@ -41,5 +43,31 @@ class MedicineController extends Controller implements MedicineTypeInterface
         Medicine::destroy((int)$medicineId);
 
         return  redirect(route('home'));
+    }
+
+    /**
+     * update
+     *
+     * @param  mixed $request
+     * @return JsonResponse
+     */
+    public function update(Request $request): JsonResponse
+    {
+        if (!is_numeric($request->id)) {
+            return response()->json('Not found', 404);
+        }
+
+        $validated = $request->validate([
+            'name' => 'string|max:255',
+            'substance_id' => 'numeric|exists:substances,id',
+            'manufacturer_id' => 'numeric|exists:manufacturers,id',
+            'price' => 'numeric',
+        ]);
+        $medicine = Medicine::findOrFail($request->id);
+        $update = $medicine->update($validated);
+
+        if ($update) {
+            return response()->json('Success', 201);
+        }
     }
 }

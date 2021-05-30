@@ -32,7 +32,9 @@ function initChangeType(){
             </div>
             </div>
             `;
-         sendRequest('/supplies');
+        sendRequest('/supplies', null ,'PUT').then((data) => {
+            insertResponseData(data);
+        });
          
          break;
       }
@@ -58,27 +60,26 @@ function removeOldInput ([...removeClass]) {
    });
  }
 
-  function sendRequest(url){
+ async function sendRequest(url, body = null, method){
    let token = document.querySelector('input[name=_token]').getAttribute('value');
-   fetch(url, {
+   let result = fetch(url, {
       headers: {
           "Content-Type": "application/json",
           "Accept": "application/json, text-plain, */*",
           "X-Requested-With": "XMLHttpRequest",
           "X-CSRF-TOKEN": token
           },
-      method: 'post',
+      method: method,
       credentials: "same-origin",
+      body: JSON.stringify(body)
   })
   .then((response) => {
-      return response.json();
+    return response.json();
   })
-  .then((data) => {
-   insertResponseData(data);
- })
   .catch(function(error) {
      return error;
   });
+  return result;
  }
 
 function showEditButton(){
@@ -86,44 +87,60 @@ function showEditButton(){
       $(this).find('.table-edit-value').toggleClass('hidden');
    });
 }
+
 function clickEditButton(){
-   $('.table-edit-value').off('click');
    $('.table-edit-value').click(function(e){
-      $(this).text('Сохранить').addClass('save');
-      clickSaveButton();
-      $(this).siblings('.content__table-edit-text').attr('contenteditable', 'true').addClass('bordered');
+      if($(this).hasClass('save')){
+         clickSaveButton($(this));
+      }else{
+         $(this).text('Сохранить').addClass('save');
+         $(this).siblings('.content__table-edit-text').attr('contenteditable', 'true').addClass('bordered');
+         $(this).siblings('.content__table--link').attr('contenteditable', 'true').addClass('bordered');
+         if($(this).siblings('.content__table--substance')){
+            $(this).siblings('.content__table--substance').removeAttr('disabled');
+         }
+         if($(this).siblings('.content__table--manufacturer')){
+            $(this).siblings('.content__table--manufacturer').removeAttr('disabled');
+         }
+      }
    });
 }
-//TODO: Keep DRY, remove fetch, change click save
-function clickSaveButton(){
-   $('.save').click(function(e){
-      $(this).text('Изменить');
-      $(this).siblings('.content__table-edit-text').attr('contenteditable', 'false').removeClass('bordered');
-      const 
-      let token = document.querySelector('input[name=_token]').getAttribute('value');
-         fetch(url, {
-            headers: {
-               "Content-Type": "application/json",
-               "Accept": "application/json, text-plain, */*",
-               "X-Requested-With": "XMLHttpRequest",
-               "X-CSRF-TOKEN": token
-               },
-            method: 'post',
-            credentials: "same-origin",
-            body: JSON.stringify({
-               req: [''=>'', ''=>''],
-           })
-      })
-      .then((response) => {
-            return response.json();
-      })
-      .then((data) => {
+
+function clickSaveButton(obj){
+      $(obj).text('Изменить').removeClass('save');
+      $(obj).siblings('.content__table-edit-text').attr('contenteditable', 'false').removeClass('bordered');
+      let url = '';
+      
+      let dataType = $(obj).closest('.content__table--row').attr('data-type');
+      let dataId = $(obj).closest('.content__table--row').attr('data-id');
+      let body = {
+         'id': dataId,
+      };
+      let name = $(obj).siblings('.content__table-edit-text.name').text();
+      let link = $(obj).siblings('.content__table--link').text();
+      let price = $(obj).siblings('.content__table-edit-text.price').text();
+      let substance_id = $(obj).siblings('.content__table--substance').val();
+      let manufacturer_id = $(obj).siblings('.content__table--manufacturer').val();
+      let data = {name, link, price, substance_id, manufacturer_id};
+      for(let value in data){
+         if(data[value] !== null && data[value] !== '' && typeof(data[value]) !== 'undefined'){
+            body[value] = data[value];
+         }
+      }
+      switch(dataType){
+         case 'substance':
+            url = '/substance/update';
+         break;
+         case 'manufacturer':
+            url = '/manufacture/update';
+         break;
+         case 'medicine':
+            url = '/medicine/update';
+         break;
+      }
+      sendRequest(url, body, 'PUT').then((data)=>{
          console.log(data);
-      })
-      .catch(function(error) {
-         return error;
       });
-   });
 }
 
 

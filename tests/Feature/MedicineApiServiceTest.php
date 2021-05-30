@@ -6,11 +6,6 @@ use Tests\TestCase;
 use Illuminate\Testing\Fluent\AssertableJson;
 use App\Models\Medicine;
 
-
-// test request json
-// test request field
-// test request empty endpoint
-
 class MedicineApiServiceTest extends TestCase
 {
     /**

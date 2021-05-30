@@ -4,7 +4,6 @@ namespace App\Http\Services;
 
 use Illuminate\Http\Request;
 use App\Http\Resources\MedicineResource;
-use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Models\Medicine;
 
@@ -37,7 +36,7 @@ class MedicineApiService extends BaseApiService
          'manufacturer_id' => 'numeric|exists:manufacturers,id',
          'price' => 'numeric',
       ]);
-      $medicine = Medicine::create($request->only(['name', 'substance_id', 'manufacturer_id', 'price']));
+      $medicine = Medicine::create($validated);
       $options = [
          'operation' => 'Create',
          'status' => 'Success',
@@ -73,7 +72,7 @@ class MedicineApiService extends BaseApiService
          'price' => 'numeric',
       ]);
 
-      $medicine->update($request->only(['name', 'substance_id', 'manufacturer_id', 'price']));
+      $medicine->update($validated);
 
       $options = [
          'operation' => 'Update',
