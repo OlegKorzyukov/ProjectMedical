@@ -34,7 +34,7 @@ Description - **Get all medicines essence**
         `"substance_id": (id),`  
         `"manufacturer_id": (id),`  
         `"price": (int)`  
-    `},  
+    `},`  
    `...`  
 `]`
 
@@ -81,7 +81,7 @@ Status code - **201**
 Description - **Update one medicine essence by id**
 
 **Output:**  
-`{  
+`{`  
    `'operation' => (string),`  
    `'status' => (string),`  
    `'model' => (Object)`  
@@ -154,7 +154,7 @@ Description - **Get information about login user**
 *Header:*
    `Authorization: Bearer (your_token)`
 
-**Output:**
+**Output:**  
 `{`  
     `"message": "Successfully logged out"`  
 `}`
@@ -190,14 +190,14 @@ Description - **Refresh access token**
 *Header:*
    `Authorization: Bearer (your_token)`
 
-`{  
+`{`  
    `"name": (string),`  
    `"email": (string),`  
    `"password": (string),`  
    `"password_confirmation": (string)`  
-}`
+`}`
 
-**Output:**
+**Output:**  
 `{`  
     `"message": "User successfully registered",`  
     `"user": {`  
