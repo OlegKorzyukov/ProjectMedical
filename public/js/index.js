@@ -95,7 +95,6 @@ function clickEditButton(){
       }else{
          $(this).text('Сохранить').addClass('save');
          $(this).siblings('.content__table-edit-text').attr('contenteditable', 'true').addClass('bordered');
-         $(this).siblings('.content__table--link').attr('contenteditable', 'true').addClass('bordered');
          if($(this).siblings('.content__table--substance')){
             $(this).siblings('.content__table--substance').removeAttr('disabled');
          }
@@ -110,7 +109,7 @@ function clickSaveButton(obj){
       $(obj).text('Изменить').removeClass('save');
       $(obj).siblings('.content__table-edit-text').attr('contenteditable', 'false').removeClass('bordered');
       $(obj).siblings('.content__table--manufacturer').attr('disabled','');
-      $(obj).siblings('.content__table--substance').attr('disabled', '');
+      $(obj).siblings('.content__table--substance').attr('disabled','');
       let url = '';
       
       let dataType = $(obj).closest('.content__table--row').attr('data-type');
@@ -119,7 +118,7 @@ function clickSaveButton(obj){
          'id': dataId,
       };
       let name = $(obj).siblings('.content__table-edit-text.name').text();
-      let link = $(obj).siblings('.content__table--link').text();
+      let link = $(obj).siblings('.content__table-edit-text.link').text();
       let price = $(obj).siblings('.content__table-edit-text.price').text();
       let substance_id = $(obj).siblings('.content__table--substance').val();
       let manufacturer_id = $(obj).siblings('.content__table--manufacturer').val();

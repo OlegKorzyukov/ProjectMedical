@@ -74,7 +74,7 @@
                             <span class="table-edit-value hidden">Изменить</span>
                         </div>
                         <div class="content__table--value table-link">
-                            <a class="content__table--link" href="{{$value->link}}">{{ $value->link }}</a>
+                            <a class="content__table-edit-text link" href="{{$value->link}}">{{ $value->link }}</a>
                             <span class="table-edit-value hidden">Изменить</span>
                         </div>
                         <div class="content__table--delete">
