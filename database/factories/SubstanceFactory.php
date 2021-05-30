@@ -2,18 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Medicine;
+use App\Models\Substance;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
-class MedicineFactory extends Factory
+class SubstanceFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Medicine::class;
+    protected $model = Substance::class;
 
     /**
      * Define the model's default state.
@@ -23,10 +22,7 @@ class MedicineFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
-            'substance_id' => 1,
-            'manufacturer_id' => 1,
-            'price' => $this->faker->randomNumber(4),
+            'name' => $this->faker->name()
         ];
     }
 }

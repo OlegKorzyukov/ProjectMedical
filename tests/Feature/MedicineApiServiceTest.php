@@ -3,123 +3,240 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Illuminate\Testing\Fluent\AssertableJson;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Medicine;
+use App\Models\User;
+use App\Models\Substance;
+use App\Models\Manufacturer;
 
+// TODO: Keep DRY, get out headers in other function
 class MedicineApiServiceTest extends TestCase
 {
+    //use RefreshDatabase;
     /**
      * Test GET method on all data
-     * api point 'api/v1/medicines'
-     *
+     * api point GET 'api/v1/medicines'
+     * Headers - Authorization: Bearer {Auth token}
+     * 
      * @return void
      */
     public function test_get_method_api()
     {
-        $response = $this->get('api/v1/medicines');
+        $password = 'passtest123';
+        $user = User::factory()->create([
+            'password' => Hash::make('passtest123')
+        ]);
+        $request = ['email' => $user->getAttributes()['email'], 'password' => $password];
+        $getToken = $this->post('api/v1/auth/login', $request);
+        $token = $getToken->getData()->access_token;
+        $head = "Bearer " . $token;
+
+        $response = $this->withHeaders([
+            'Authorization' => $head,
+        ])->get('api/v1/medicines');
+
         $response->assertStatus(200);
     }
     /**
      * Test POST method insert object
-     * api point 'api/v1/medicines'
-     *
+     * api point POST 'api/v1/medicines'
+     * Headers - Authorization: Bearer {Auth token}
+     * 
      * @return void
      */
     public function test_post_method_api()
     {
-        $model = Medicine::factory()->make();
-        $response = $this->post('api/v1/medicines/', $model->getAttributes());
+        $password = 'passtest123';
+        $user = User::factory()->create([
+            'password' => Hash::make('passtest123')
+        ]);
+        $request = ['email' => $user->getAttributes()['email'], 'password' => $password];
+        $getToken = $this->post('api/v1/auth/login', $request);
+        $token = $getToken->getData()->access_token;
+        $head = "Bearer " . $token;
 
+        $substance = Substance::factory()->create();
+        $manufacturer = Manufacturer::factory()->create();
+        $model = Medicine::factory()->make();
+        $response = $this->withHeaders([
+            'Authorization' => $head,
+        ])->post('api/v1/medicines/', $model->getAttributes());
         $response->assertStatus(201);
     }
     /**
      * Test GET method on single object
-     * api point 'api/v1/medicines{id}'
-     *
+     * api point GET 'api/v1/medicines{id}'
+     * Headers - Authorization: Bearer {Auth token}
+     * 
      * @return void
      */
     public function test_get_method_single_object_api()
     {
+        $password = 'passtest123';
+        $user = User::factory()->create([
+            'password' => Hash::make('passtest123')
+        ]);
+        $request = ['email' => $user->getAttributes()['email'], 'password' => $password];
+        $getToken = $this->post('api/v1/auth/login', $request);
+        $token = $getToken->getData()->access_token;
+        $head = "Bearer " . $token;
+
         $model = Medicine::factory()->create();
-        $response = $this->get('api/v1/medicines/' . $model->id);
+        $response = $this->withHeaders([
+            'Authorization' => $head,
+        ])->get('api/v1/medicines/' . $model->id);
         $response->assertStatus(200);
     }
     /**
      * Test PUT method on single object
-     * api point 'api/v1/medicines{id}'
-     *
+     * api point PUT 'api/v1/medicines{id}'
+     * Headers - Authorization: Bearer {Auth token}
+     * 
      * @return void
      */
     public function test_put_method_single_object_api()
     {
+        $password = 'passtest123';
+        $user = User::factory()->create([
+            'password' => Hash::make('passtest123')
+        ]);
+        $request = ['email' => $user->getAttributes()['email'], 'password' => $password];
+        $getToken = $this->post('api/v1/auth/login', $request);
+        $token = $getToken->getData()->access_token;
+        $head = "Bearer " . $token;
+
         $model = Medicine::factory()->create();
         $newModel = Medicine::factory()->make();
-        $response = $this->put('api/v1/medicines/' . $model->id, $newModel->getAttributes());
+        $response = $this->withHeaders([
+            'Authorization' => $head,
+        ])->put('api/v1/medicines/' . $model->id, $newModel->getAttributes());
 
         $response->assertStatus(201);
     }
 
     /**
      * Test DELETE method on single object 
-     * api point 'api/v1/medicines{id}'
+     * api point DELETE 'api/v1/medicines{id}'
+     * Headers - Authorization: Bearer {Auth token}
      * 
      * @return void
      */
     public function test_delete_method_single_object_api()
     {
+        $password = 'passtest123';
+        $user = User::factory()->create([
+            'password' => Hash::make('passtest123')
+        ]);
+        $request = ['email' => $user->getAttributes()['email'], 'password' => $password];
+        $getToken = $this->post('api/v1/auth/login', $request);
+        $token = $getToken->getData()->access_token;
+        $head = "Bearer " . $token;
+
         $model = Medicine::factory()->create();
-        $response = $this->delete('api/v1/medicines/' . $model->id);
+        $response = $this->withHeaders([
+            'Authorization' => $head,
+        ])->delete('api/v1/medicines/' . $model->id);
 
         $response->assertStatus(200);
     }
 
     /**
      * Test fallback unknown GET resource path 
-     *  api point 'api/v1/medicines{id}'
-     *
+     *  api point GET 'api/v1/medicines{id}'
+     * Headers - Authorization: Bearer {Auth token}
+     * 
      * @return void
      */
     public function test_get_fallback_unknown_url_api()
     {
-        $response = $this->get('api/v1/medicines/99999999');
+        $password = 'passtest123';
+        $user = User::factory()->create([
+            'password' => Hash::make('passtest123')
+        ]);
+        $request = ['email' => $user->getAttributes()['email'], 'password' => $password];
+        $getToken = $this->post('api/v1/auth/login', $request);
+        $token = $getToken->getData()->access_token;
+        $head = "Bearer " . $token;
+
+        $response = $this->withHeaders([
+            'Authorization' => $head,
+        ])->get('api/v1/medicines/99999999');
         $response->assertStatus(404);
     }
 
     /**
      * Test fallback unknown PUT resource path 
-     *  api point 'api/v1/medicines{id}'
-     *
+     *  api point PUT 'api/v1/medicines{id}'
+     * Headers - Authorization: Bearer {Auth token}
+     * 
      * @return void
      */
     public function test_put_fallback_unknown_url_api()
     {
-        $response = $this->put('api/v1/medicines/99999999');
+        $password = 'passtest123';
+        $user = User::factory()->create([
+            'password' => Hash::make('passtest123')
+        ]);
+        $request = ['email' => $user->getAttributes()['email'], 'password' => $password];
+        $getToken = $this->post('api/v1/auth/login', $request);
+        $token = $getToken->getData()->access_token;
+        $head = "Bearer " . $token;
+
+        $response = $this->withHeaders([
+            'Authorization' => $head,
+        ])->put('api/v1/medicines/99999999');
         $response->assertStatus(404);
     }
 
     /**
      * Test fallback unknown DELETE resource path 
-     *  api point 'api/v1/medicines{id}'
-     *
+     *  api point DELETE 'api/v1/medicines{id}'
+     *  Headers - Authorization: Bearer {Auth token}
+     * 
      * @return void
      */
     public function test_delete_fallback_unknown_url_api()
     {
-        $response = $this->delete('api/v1/medicines/99999999');
+        $password = 'passtest123';
+        $user = User::factory()->create([
+            'password' => Hash::make('passtest123')
+        ]);
+        $request = ['email' => $user->getAttributes()['email'], 'password' => $password];
+        $getToken = $this->post('api/v1/auth/login', $request);
+        $token = $getToken->getData()->access_token;
+        $head = "Bearer " . $token;
+
+        $response = $this->withHeaders([
+            'Authorization' => $head,
+        ])->delete('api/v1/medicines/99999999');
         $response->assertStatus(404);
     }
 
 
     /**
      * Test POST method response data format
-     * api point 'api/v1/medicines'
-     *
+     * api point POST 'api/v1/medicines'
+     *  Headers - Authorization: Bearer {Auth token}
+     * 
      * @return void
      */
     public function test_store_response_an_exact_json_match()
     {
+        $password = 'passtest123';
+        $user = User::factory()->create([
+            'password' => Hash::make('passtest123')
+        ]);
+        $request = ['email' => $user->getAttributes()['email'], 'password' => $password];
+        $getToken = $this->post('api/v1/auth/login', $request);
+        $token = $getToken->getData()->access_token;
+        $head = "Bearer " . $token;
+
         $model = Medicine::factory()->make();
-        $response = $this->post('api/v1/medicines/', $model->getAttributes());
+        $response = $this->withHeaders([
+            'Authorization' => $head,
+        ])->post('api/v1/medicines/', $model->getAttributes());
+
         $response
             ->assertExactJson([
                 "operation" => "Create",
@@ -136,14 +253,26 @@ class MedicineApiServiceTest extends TestCase
 
     /**
      * Test GET method response data format
-     * api point 'api/v1/medicines/{id}'
-     *
+     * api point GET 'api/v1/medicines/{id}'
+     *  Headers - Authorization: Bearer {Auth token}
+     * 
      * @return void
      */
     public function test_show_response_an_exact_json_match()
     {
+        $password = 'passtest123';
+        $user = User::factory()->create([
+            'password' => Hash::make('passtest123')
+        ]);
+        $request = ['email' => $user->getAttributes()['email'], 'password' => $password];
+        $getToken = $this->post('api/v1/auth/login', $request);
+        $token = $getToken->getData()->access_token;
+        $head = "Bearer " . $token;
+
         $model = Medicine::factory()->create();
-        $response = $this->get('api/v1/medicines/' . $model->id);
+        $response = $this->withHeaders([
+            'Authorization' => $head,
+        ])->get('api/v1/medicines/' . $model->id);
         $response
             ->assertExactJson([
                 'data' => [
@@ -158,15 +287,27 @@ class MedicineApiServiceTest extends TestCase
 
     /**
      * Test PUT method response data format
-     * api point 'api/v1/medicines'
-     *
+     * api point PUT 'api/v1/medicines'
+     *  Headers - Authorization: Bearer {Auth token}
+     * 
      * @return void
      */
     public function test_update_response_an_exact_json_match()
     {
+        $password = 'passtest123';
+        $user = User::factory()->create([
+            'password' => Hash::make('passtest123')
+        ]);
+        $request = ['email' => $user->getAttributes()['email'], 'password' => $password];
+        $getToken = $this->post('api/v1/auth/login', $request);
+        $token = $getToken->getData()->access_token;
+        $head = "Bearer " . $token;
+
         $model = Medicine::factory()->create();
         $newModel = Medicine::factory()->make();
-        $response = $this->put('api/v1/medicines/' . $model->id, $newModel->getAttributes());
+        $response = $this->withHeaders([
+            'Authorization' => $head,
+        ])->put('api/v1/medicines/' . $model->id, $newModel->getAttributes());
         $response
             ->assertExactJson([
                 "operation" => "Update",
@@ -183,14 +324,26 @@ class MedicineApiServiceTest extends TestCase
 
     /**
      * Test DELETE method response data format
-     * api point 'api/v1/medicines'
-     *
+     * api point DELETE 'api/v1/medicines'
+     *  Headers - Authorization: Bearer {Auth token}
+     * 
      * @return void
      */
     public function test_delete_response_an_exact_json_match()
     {
+        $password = 'passtest123';
+        $user = User::factory()->create([
+            'password' => Hash::make('passtest123')
+        ]);
+        $request = ['email' => $user->getAttributes()['email'], 'password' => $password];
+        $getToken = $this->post('api/v1/auth/login', $request);
+        $token = $getToken->getData()->access_token;
+        $head = "Bearer " . $token;
+
         $model = Medicine::factory()->create();
-        $response = $this->delete('api/v1/medicines/' . $model->id);
+        $response =  $this->withHeaders([
+            'Authorization' => $head,
+        ])->delete('api/v1/medicines/' . $model->id);
         $response
             ->assertExactJson([
                 "operation" => "Destroy",
