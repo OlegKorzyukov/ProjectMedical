@@ -26,6 +26,10 @@ Return - **JSON**
 Status code - **200**  
 Description - **Get all medicines essence**
 
+**Input required:**  
+*Header:*
+   `Authorization: Bearer (your_token)`
+
 **Output:**  
 `[`   
    `"data": {`  
@@ -46,6 +50,10 @@ Return - **JSON**
 Status code - **201**  
 Description - **Insert new medicine essence in database**
 
+**Input required:**  
+*Header:*
+   `Authorization: Bearer (your_token)`
+
 **Output:**  
 `{`  
    `'operation' => (string)',`  
@@ -60,6 +68,10 @@ Endpoint - **api/v1/medicines/{id}**
 Return - **JSON**  
 Status code - **200**  
 Description - **Get one medicine essence by id**
+
+**Input required:**  
+*Header:*
+   `Authorization: Bearer (your_token)`
 
 **Output:**  
 `{`  
@@ -80,6 +92,10 @@ Return - **JSON**
 Status code - **201**  
 Description - **Update one medicine essence by id**
 
+**Input required:**  
+*Header:*
+   `Authorization: Bearer (your_token)`
+
 **Output:**  
 `{`  
    `'operation' => (string),`  
@@ -95,6 +111,10 @@ Return - **JSON**
 Status code - **200**  
 Description - **Delete one medicine essence by id**
 
+**Input required:**  
+*Header:*
+   `Authorization: Bearer (your_token)`
+   
 **Output:**  
 `{`  
    `'operation' => (string),`  
